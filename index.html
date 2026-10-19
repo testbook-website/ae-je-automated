@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energy vs Exergy: Differences, Formulas, Data Tables & Solved Examples | GATE ME Thermodynamics | Testbook</title>
+<meta name="description" content="Energy vs Exergy compared on 12 parameters, with formula sheet, exergy-of-heat data table (300–2000 K), first vs second law efficiency data, solved numericals and an exergy calculator. GATE ME / ESE Thermodynamics.">
+<link rel="canonical" href="https://testbook.com/mechanical-engineering/energy-vs-exergy">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Mechanical Engineering", "item": "https://testbook.com/mechanical-engineering"},
+        {"@type": "ListItem", "position": 2, "name": "Thermodynamics", "item": "https://testbook.com/mechanical-engineering/thermodynamics"},
+        {"@type": "ListItem", "position": 3, "name": "Energy vs Exergy", "item": "https://testbook.com/mechanical-engineering/energy-vs-exergy"}
+      ]
+    },
+    {
+      "@type": "LearningResource",
+      "name": "Energy vs Exergy",
+      "educationalLevel": "Undergraduate Engineering",
+      "learningResourceType": "Comparison",
+      "teaches": ["Exergy", "Second law efficiency", "Gouy-Stodola theorem", "Irreversibility"],
+      "about": {"@type": "Thing", "name": "Engineering Thermodynamics"}
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    /* Swap these with Testbook brand tokens */
+    --brand: #0a6cff;
+    --brand-dark: #0750bf;
+    --brand-soft: #e8f1ff;
+    --accent: #ff7a00;
+    --accent-soft: #fff2e6;
+    --ink: #14171f;
+    --ink-2: #4a5160;
+    --ink-3: #7b8292;
+    --line: #e3e6ec;
+    --bg: #f6f7fa;
+    --card: #ffffff;
+    --good: #0f9d58;
+    --bad: #d93025;
+    --radius: 12px;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ---------- Header ---------- */
+  .topbar { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; }
+  .topbar-inner { max-width: 1180px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 16px; }
+  .logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 22px; color: var(--ink); letter-spacing: -0.5px; }
+  .logo img { height: 30px; display: block; }
+  .logo .fallback { display: none; }
+  .logo img.missing { display: none; }
+  .logo img.missing + .fallback { display: inline; }
+  .logo .fallback b { color: var(--brand); }
+  .nav { display: flex; gap: 18px; margin-left: 12px; font-size: 14px; }
+  .nav a { color: var(--ink-2); }
+  .topbar .spacer { flex: 1; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; border: 0; cursor: pointer; border-radius: 8px; padding: 9px 16px; font-weight: 600; font-size: 14px; }
+  .btn-primary { background: var(--brand); color: #fff; }
+  .btn-primary:hover { background: var(--brand-dark); text-decoration: none; }
+  .btn-outline { background: #fff; color: var(--brand); border: 1.5px solid var(--brand); }
+  .btn-accent { background: var(--accent); color: #fff; }
+
+  /* ---------- Layout ---------- */
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 20px 16px 60px; display: grid; grid-template-columns: 240px minmax(0,1fr); gap: 28px; }
+  aside.toc { position: sticky; top: 72px; align-self: start; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; font-size: 14px; }
+  aside.toc h4 { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .8px; color: var(--ink-3); }
+  aside.toc ol { margin: 0; padding-left: 18px; }
+  aside.toc li { margin: 6px 0; }
+  aside.toc a { color: var(--ink-2); }
+  main { min-width: 0; }
+
+  .crumbs { font-size: 13px; color: var(--ink-3); margin-bottom: 10px; }
+  .crumbs a { color: var(--ink-3); }
+
+  .hero { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .tag { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-dark); }
+  .tag.o { background: var(--accent-soft); color: #b35500; }
+  h1 { margin: 0 0 6px; font-size: 30px; line-height: 1.2; letter-spacing: -0.5px; }
+  .hero p.sub { margin: 0 0 18px; color: var(--ink-2); }
+  .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; }
+  .stat { background: var(--bg); border-radius: 10px; padding: 12px 14px; }
+  .stat .n { font-size: 22px; font-weight: 800; color: var(--brand-dark); }
+  .stat .l { font-size: 12px; color: var(--ink-3); }
+
+  section.card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; margin-top: 18px; }
+  section.card h2 { margin: 0 0 4px; font-size: 21px; }
+  section.card .h2-sub { margin: 0 0 16px; color: var(--ink-3); font-size: 13px; }
+
+  /* ---------- Tables ---------- */
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { background: #f0f3f8; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: var(--ink-2); }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:nth-child(even) td { background: #fafbfd; }
+  td.param { font-weight: 600; width: 22%; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .col-e { border-left: 3px solid var(--brand); }
+  .col-x { border-left: 3px solid var(--accent); }
+
+  /* ---------- Formula cards ---------- */
+  .f-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+  .f-card { border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+  .f-card .f-name { font-size: 12px; font-weight: 700; color: var(--ink-3); text-transform: uppercase; letter-spacing: .5px; }
+  .f-card .f-eq { font-family: var(--mono); font-size: 15px; margin: 8px 0; padding: 10px; background: #f7f9fc; border-radius: 6px; overflow-x: auto; white-space: nowrap; }
+  .f-card .f-note { font-size: 13px; color: var(--ink-2); }
+
+  /* ---------- Bars ---------- */
+  .bars { margin-top: 14px; }
+  .bar-row { display: grid; grid-template-columns: 80px 1fr 70px; align-items: center; gap: 10px; margin: 6px 0; font-size: 13px; }
+  .bar-track { height: 18px; background: #eef1f6; border-radius: 4px; overflow: hidden; display: flex; }
+  .bar-x { background: var(--accent); }
+  .bar-a { background: #cfd6e2; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); margin-top: 8px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+
+  /* ---------- Calculator ---------- */
+  .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .calc { border: 1px solid var(--line); border-radius: 10px; padding: 16px; background: linear-gradient(180deg,#fbfcff,#fff); }
+  .calc h3 { margin: 0 0 4px; font-size: 16px; }
+  .calc .fx { font-family: var(--mono); font-size: 12px; color: var(--ink-3); margin-bottom: 12px; }
+  .calc label { display: grid; grid-template-columns: 1fr 120px; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-2); margin: 6px 0; }
+  .calc input { width: 100%; padding: 7px 9px; border: 1px solid var(--line); border-radius: 6px; font: inherit; text-align: right; }
+  .calc .out { margin-top: 12px; padding: 12px; border-radius: 8px; background: var(--accent-soft); }
+  .calc .out .big { font-size: 22px; font-weight: 800; color: #b35500; }
+  .calc .out .small { font-size: 12px; color: var(--ink-2); }
+
+  /* ---------- Solved / quiz ---------- */
+  .step { display: grid; grid-template-columns: 28px 1fr; gap: 10px; margin: 10px 0; }
+  .step .k { width: 26px; height: 26px; border-radius: 50%; background: var(--brand-soft); color: var(--brand-dark); font-weight: 700; font-size: 13px; display: grid; place-items: center; }
+  .step code { font-family: var(--mono); background: #f4f6fa; padding: 2px 6px; border-radius: 4px; }
+  .answer { margin-top: 10px; padding: 10px 14px; border-left: 4px solid var(--good); background: #eefaf3; border-radius: 6px; font-weight: 600; }
+
+  .q { border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin: 10px 0; }
+  .q .qt { font-weight: 600; margin-bottom: 8px; }
+  .q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .q button.opt { text-align: left; border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 8px 12px; cursor: pointer; font: inherit; }
+  .q button.opt:hover { border-color: var(--brand); }
+  .q button.opt.right { border-color: var(--good); background: #eefaf3; }
+  .q button.opt.wrong { border-color: var(--bad); background: #fdeeee; }
+  .q .why { display: none; margin-top: 8px; font-size: 13px; color: var(--ink-2); }
+  .q.done .why { display: block; }
+
+  /* ---------- Data slots (feed from Testbook DB) ---------- */
+  .slot { border: 2px dashed #c7d3e6; border-radius: 10px; padding: 16px; background: #fbfcff; color: var(--ink-3); font-size: 13px; }
+  .slot b { color: var(--ink-2); }
+  .slot code { font-family: var(--mono); background: #eef2f8; padding: 1px 6px; border-radius: 4px; }
+
+  /* ---------- Related ---------- */
+  .rel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .rel a { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; color: var(--ink); font-size: 14px; font-weight: 500; }
+  .rel a span { display: block; font-size: 12px; color: var(--ink-3); font-weight: 400; }
+  .rel a:hover { border-color: var(--brand); text-decoration: none; }
+
+  .cta { margin-top: 18px; border-radius: var(--radius); padding: 22px 24px; background: linear-gradient(110deg, var(--brand), #2a3bd6); color: #fff; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .cta h3 { margin: 0; font-size: 19px; }
+  .cta p { margin: 4px 0 0; opacity: .9; font-size: 14px; }
+  .cta .spacer { flex: 1; }
+  .cta .btn { background: #fff; color: var(--brand-dark); }
+
+  footer { text-align: center; font-size: 12px; color: var(--ink-3); padding: 20px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .wrap { grid-template-columns: 1fr; }
+    aside.toc { display: none; }
+    .nav { display: none; }
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .f-grid, .calc-grid { grid-template-columns: 1fr; }
+    .rel { grid-template-columns: 1fr 1fr; }
+    h1 { font-size: 24px; }
+  }
+  @media (max-width: 520px) {
+    .q .opts, .rel { grid-template-columns: 1fr; }
+    section.card { padding: 18px 16px; }
+  }
+
+  /* ---------- Print = PDF ---------- */
+  .print-only { display: none; }
+  @media print {
+    @page { size: A4; margin: 14mm; }
+    body { background: #fff; font-size: 12px; }
+    .topbar, aside.toc, .hero-actions, #calculator, .cta, .no-print, .q .opts, footer { display: none !important; }
+    .wrap { display: block; padding: 0; max-width: none; }
+    section.card, .hero { border: 0; padding: 0; margin-top: 14px; page-break-inside: avoid; }
+    .print-only { display: block; }
+    .print-head { display: flex !important; justify-content: space-between; border-bottom: 2px solid var(--brand); padding-bottom: 6px; margin-bottom: 10px; }
+    .q .why { display: block !important; }
+    a { color: var(--ink); }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="https://testbook.com" aria-label="Testbook home">
+      <!-- Replace src with the official Testbook logo asset -->
+      <img src="/assets/testbook-logo.svg" alt="Testbook" onerror="this.classList.add('missing')">
+      <span class="fallback">test<b>book</b></span>
+    </a>
+    <nav class="nav">
+      <a href="#">GATE ME</a>
+      <a href="#">ESE ME</a>
+      <a href="#">Test Series</a>
+      <a href="#">PYQs</a>
+    </nav>
+    <div class="spacer"></div>
+    <button class="btn btn-outline" onclick="downloadPDF()">⬇ PDF</button>
+    <a class="btn btn-primary" href="#">Start Free Test</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ================= TOC ================= -->
+  <aside class="toc">
+    <h4>On this page</h4>
+    <ol>
+      <li><a href="#differences">12-point comparison</a></li>
+      <li><a href="#formulas">Formula sheet</a></li>
+      <li><a href="#heat-table">Exergy of heat: data</a></li>
+      <li><a href="#efficiency">1st vs 2nd law efficiency</a></li>
+      <li><a href="#fuels">Exergy of fuels</a></li>
+      <li><a href="#calculator">Exergy calculator</a></li>
+      <li><a href="#solved">Solved numerical</a></li>
+      <li><a href="#practice">Practice MCQs</a></li>
+      <li><a href="#pyq">GATE / ESE PYQs</a></li>
+      <li><a href="#related">Related comparisons</a></li>
+    </ol>
+  </aside>
+
+  <main>
+    <div class="print-only print-head" style="display:none">
+      <strong>Testbook · Energy vs Exergy</strong>
+      <span>testbook.com/mechanical-engineering/energy-vs-exergy</span>
+    </div>
+
+    <div class="crumbs">
+      <a href="#">Mechanical Engineering</a> › <a href="#">Thermodynamics</a> › Energy vs Exergy
+    </div>
+
+    <!-- ================= HERO ================= -->
+    <div class="hero">
+      <div class="tags">
+        <span class="tag">GATE ME</span>
+        <span class="tag">ESE ME</span>
+        <span class="tag">SSC JE</span>
+        <span class="tag o">Thermodynamics · Availability</span>
+      </div>
+      <h1>Energy vs Exergy</h1>
+      <p class="sub">Energy is conserved (1st law). Exergy is the part of energy that can be converted to useful work against a given environment, and it is destroyed by every irreversibility (2nd law).</p>
+      <div class="hero-actions">
+        <button class="btn btn-accent" onclick="downloadPDF()">⬇ Download PDF (Formula + Tables)</button>
+        <a class="btn btn-outline" href="#calculator">Open Exergy Calculator</a>
+        <a class="btn btn-outline" href="#practice">Practice MCQs</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="n">12</div><div class="l">Parameters compared</div></div>
+        <div class="stat"><div class="n">7</div><div class="l">Core formulas</div></div>
+        <div class="stat"><div class="n">8</div><div class="l">Temperature data points</div></div>
+        <div class="stat"><div class="n">T₀ = 300 K</div><div class="l">Dead state used</div></div>
+      </div>
+    </div>
+
+    <!-- ================= COMPARISON ================= -->
+    <section class="card" id="differences">
+      <h2>Energy vs Exergy: 12-point comparison</h2>
+      <p class="h2-sub">Parameter-wise differences as used in GATE / ESE thermodynamics.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Parameter</th><th class="col-e">Energy</th><th class="col-x">Exergy (Availability)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="param">Governing law</td><td class="col-e">First law of thermodynamics</td><td class="col-x">Second law (combined with first law)</td></tr>
+            <tr><td class="param">Conservation</td><td class="col-e">Always conserved</td><td class="col-x">Conserved only in reversible processes; destroyed otherwise</td></tr>
+            <tr><td class="param">Depends on environment?</td><td class="col-e">No (system property)</td><td class="col-x">Yes, depends on T₀, P₀ of surroundings</td></tr>
+            <tr><td class="param">Value at dead state</td><td class="col-e">Non-zero</td><td class="col-x">Zero</td></tr>
+            <tr><td class="param">Can it be negative?</td><td class="col-e">Depends on reference chosen</td><td class="col-x">No (≥ 0 for a closed system)</td></tr>
+            <tr><td class="param">Measures</td><td class="col-e">Quantity of energy</td><td class="col-x">Quality (work potential) of energy</td></tr>
+            <tr><td class="param">Balance equation</td><td class="col-e">E<sub>in</sub> − E<sub>out</sub> = ΔE</td><td class="col-x">X<sub>in</sub> − X<sub>out</sub> − X<sub>destroyed</sub> = ΔX</td></tr>
+            <tr><td class="param">Loss term</td><td class="col-e">None (only transfers)</td><td class="col-x">X<sub>destroyed</sub> = T₀·S<sub>gen</sub> (Gouy–Stodola)</td></tr>
+            <tr><td class="param">Efficiency defined</td><td class="col-e">First law efficiency η<sub>I</sub></td><td class="col-x">Second law efficiency η<sub>II</sub></td></tr>
+            <tr><td class="param">Heat Q at temperature T</td><td class="col-e">Full Q counts</td><td class="col-x">Only Q(1 − T₀/T) counts</td></tr>
+            <tr><td class="param">Work / electricity</td><td class="col-e">W</td><td class="col-x">W (100% exergy)</td></tr>
+            <tr><td class="param">Unused part called</td><td class="col-e">—</td><td class="col-x">Anergy = Energy − Exergy</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= FORMULAS ================= -->
+    <section class="card" id="formulas">
+      <h2>Formula sheet</h2>
+      <p class="h2-sub">Subscript 0 = dead state (environment). Units: kJ, kJ/kg, K.</p>
+      <div class="f-grid">
+        <div class="f-card">
+          <div class="f-name">Exergy of heat</div>
+          <div class="f-eq">X<sub>Q</sub> = Q · (1 − T₀/T)</div>
+          <div class="f-note">(1 − T₀/T) is the Carnot factor.</div>
+        </div>
+        <div class="f-card">
+          <div class="f-name">Closed system (non-flow) exergy</div>
+          <div class="f-eq">φ = (u−u₀) + P₀(v−v₀) − T₀(s−s₀) + V²/2 + gz</div>
+          <div class="f-note">Specific, kJ/kg.</div>
+        </div>
+        <div class="f-card">
+          <div class="f-name">Flow exergy (stream)</div>
+          <div class="f-eq">ψ = (h−h₀) − T₀(s−s₀) + V²/2 + gz</div>
+          <div class="f-note">For control volumes / steady flow.</div>
+        </div>
+        <div class="f-card">
+          <div class="f-name">Ideal gas flow exergy</div>
+          <div class="f-eq">ψ = c<sub>p</sub>(T−T₀) − T₀[c<sub>p</sub> ln(T/T₀) − R ln(P/P₀)]</div>
+          <div class="f-note">Air: c<sub>p</sub> = 1.005, R = 0.287 kJ/kg·K.</div>
+        </div>
+        <div class="f-card">
+          <div class="f-name">Gouy–Stodola theorem</div>
+          <div class="f-eq">I = X<sub>destroyed</sub> = T₀ · S<sub>gen</sub></div>
+          <div class="f-note">I = irreversibility.</div>
+        </div>
+        <div class="f-card">
+          <div class="f-name">Irreversibility (work form)</div>
+          <div class="f-eq">I = W<sub>rev</sub> − W<sub>useful</sub></div>
+          <div class="f-note">For work-producing devices.</div>
+        </div>
+        <div class="f-card">
+          <div class="f-name">Second law efficiency</div>
+          <div class="f-eq">η<sub>II</sub> = η<sub>th</sub> / η<sub>rev</sub> = W<sub>u</sub> / W<sub>rev</sub></div>
+          <div class="f-note">Heat engines.</div>
+        </div>
+        <div class="f-card">
+          <div class="f-name">Second law efficiency (refrigerator / heat pump)</div>
+          <div class="f-eq">η<sub>II</sub> = COP / COP<sub>rev</sub></div>
+          <div class="f-note">COP<sub>HP,rev</sub> = T<sub>H</sub>/(T<sub>H</sub> − T<sub>L</sub>)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HEAT TABLE ================= -->
+    <section class="card" id="heat-table">
+      <h2>Exergy of 1000 kJ of heat vs source temperature</h2>
+      <p class="h2-sub">Computed with X<sub>Q</sub> = Q(1 − T₀/T), T₀ = 300 K. Same energy, very different work potential.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Source T (K)</th><th>Source T (°C)</th><th class="num">Carnot factor</th><th class="num">Energy (kJ)</th><th class="num">Exergy (kJ)</th><th class="num">Anergy (kJ)</th></tr>
+          </thead>
+          <tbody id="heatRows"></tbody>
+        </table>
+      </div>
+      <div class="bars" id="heatBars"></div>
+      <div class="legend"><span><i style="background:var(--accent)"></i>Exergy</span><span><i style="background:#cfd6e2"></i>Anergy</span></div>
+    </section>
+
+    <!-- ================= EFFICIENCY ================= -->
+    <section class="card" id="efficiency">
+      <h2>First law vs second law efficiency: home heating</h2>
+      <p class="h2-sub">Room at 21 °C (294.15 K), outdoors at 10 °C (283.15 K). Reversible heat pump COP = 294.15 / 11 = 26.74.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Heating device</th><th class="num">η<sub>I</sub> / COP</th><th class="num">η<sub>II</sub></th><th>Reading</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Electric resistance heater</td><td class="num">100%</td><td class="num">3.74%</td><td>Converts 100%-exergy electricity into low-grade heat</td></tr>
+            <tr><td>Gas furnace</td><td class="num">90%</td><td class="num">3.37%</td><td>High energy efficiency, very low exergy efficiency</td></tr>
+            <tr><td>Heat pump</td><td class="num">COP 3.0</td><td class="num">11.22%</td><td>3× better on exergy than the resistance heater</td></tr>
+            <tr><td>Reversible heat pump</td><td class="num">COP 26.74</td><td class="num">100%</td><td>Theoretical limit</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--ink-3);margin:10px 0 0">η<sub>II</sub> (heater) = 1 − T₀/T = 1 − 283.15/294.15 = 3.74%. Gas furnace = 0.90 × 3.74%. Heat pump = 3.0 / 26.74.</p>
+    </section>
+
+    <!-- ================= FUELS ================= -->
+    <section class="card" id="fuels">
+      <h2>Exergy content of energy forms</h2>
+      <p class="h2-sub">Ratio of exergy to energy. Fuel values are approximate chemical-exergy-to-LHV ratios (Kotas / Szargut).</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Energy form</th><th class="num">Exergy / Energy</th><th>Grade</th></tr></thead>
+          <tbody>
+            <tr><td>Electricity</td><td class="num">1.00</td><td>Highest</td></tr>
+            <tr><td>Mechanical work / shaft work</td><td class="num">1.00</td><td>Highest</td></tr>
+            <tr><td>Kinetic & potential energy</td><td class="num">1.00</td><td>Highest</td></tr>
+            <tr><td>Natural gas (vs LHV)</td><td class="num">≈ 1.04</td><td>High</td></tr>
+            <tr><td>Coal (vs LHV)</td><td class="num">≈ 1.06</td><td>High</td></tr>
+            <tr><td>Liquid fuels (vs LHV)</td><td class="num">≈ 1.07</td><td>High</td></tr>
+            <tr><td>Heat at 1000 K (T₀ = 300 K)</td><td class="num">0.70</td><td>Medium</td></tr>
+            <tr><td>Heat at 400 K (T₀ = 300 K)</td><td class="num">0.25</td><td>Low</td></tr>
+            <tr><td>Heat at ambient (T = T₀)</td><td class="num">0</td><td>Nil</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= CALCULATOR ================= -->
+    <section class="card" id="calculator">
+      <h2>Exergy calculator</h2>
+      <p class="h2-sub">Change any value; results update instantly.</p>
+      <div class="calc-grid">
+        <div class="calc">
+          <h3>Exergy of heat</h3>
+          <div class="fx">X = Q(1 − T₀/T)</div>
+          <label>Heat, Q (kJ) <input type="number" id="cQ" value="1000"></label>
+          <label>Source temperature, T (K) <input type="number" id="cT" value="600"></label>
+          <label>Dead state, T₀ (K) <input type="number" id="cT0" value="300"></label>
+          <div class="out">
+            <div class="big" id="cOut">—</div>
+            <div class="small" id="cOut2"></div>
+          </div>
+        </div>
+        <div class="calc">
+          <h3>Flow exergy of air (ideal gas)</h3>
+          <div class="fx">ψ = cₚ(T−T₀) − T₀[cₚ ln(T/T₀) − R ln(P/P₀)]</div>
+          <label>Temperature, T (K) <input type="number" id="aT" value="500"></label>
+          <label>Pressure, P (bar) <input type="number" id="aP" value="1"></label>
+          <label>T₀ (K) <input type="number" id="aT0" value="300"></label>
+          <label>P₀ (bar) <input type="number" id="aP0" value="1"></label>
+          <div class="out">
+            <div class="big" id="aOut">—</div>
+            <div class="small" id="aOut2"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SOLVED ================= -->
+    <section class="card" id="solved">
+      <h2>Solved numerical</h2>
+      <p class="h2-sub">Air flows at 500 K and 1 bar. Dead state: 300 K, 1 bar. Find the flow exergy and the fraction of enthalpy that is exergy. Take c<sub>p</sub> = 1.005 kJ/kg·K.</p>
+      <div class="step"><div class="k">1</div><div>Pressure term vanishes since P = P₀: <code>R ln(P/P₀) = 0</code></div></div>
+      <div class="step"><div class="k">2</div><div>Enthalpy above dead state: <code>cₚ(T−T₀) = 1.005 × 200 = 201.00 kJ/kg</code></div></div>
+      <div class="step"><div class="k">3</div><div>Entropy term: <code>T₀·cₚ·ln(T/T₀) = 300 × 1.005 × ln(1.6667) = 301.5 × 0.5108 = 154.01 kJ/kg</code></div></div>
+      <div class="step"><div class="k">4</div><div>Flow exergy: <code>ψ = 201.00 − 154.01 = 46.99 kJ/kg</code></div></div>
+      <div class="step"><div class="k">5</div><div>Exergy fraction: <code>46.99 / 201.00 = 23.4%</code></div></div>
+      <div class="answer">ψ ≈ 47.0 kJ/kg. Only 23.4% of the stream's enthalpy can be converted to work.</div>
+    </section>
+
+    <!-- ================= PRACTICE ================= -->
+    <section class="card" id="practice">
+      <h2>Practice MCQs</h2>
+      <p class="h2-sub">Tap an option to check.</p>
+      <div id="quiz"></div>
+    </section>
+
+    <!-- ================= PYQ SLOT ================= -->
+    <section class="card" id="pyq">
+      <h2>GATE / ESE previous year questions: Availability & Irreversibility</h2>
+      <p class="h2-sub">Pulled from the Testbook question bank.</p>
+      <div class="slot no-print">
+        <b>Data slot: PYQ module.</b> Render from question bank with filter
+        <code>subject=thermodynamics</code> <code>topic=availability|irreversibility|exergy</code> <code>exam in [GATE ME, ESE ME]</code>.
+        Show: year, exam, marks, question, options, answer, and a year-wise weightage table (topic marks per year).
+      </div>
+    </section>
+
+    <!-- ================= RELATED ================= -->
+    <section class="card" id="related">
+      <h2>Related comparisons</h2>
+      <p class="h2-sub">Thermodynamics</p>
+      <div class="rel">
+        <a href="#">Entropy vs Enthalpy<span>Thermodynamics</span></a>
+        <a href="#">Reversible vs Irreversible Process<span>Thermodynamics</span></a>
+        <a href="#">Kelvin-Planck vs Clausius<span>Thermodynamics</span></a>
+        <a href="#">Heat vs Work<span>Thermodynamics</span></a>
+        <a href="#">Carnot vs Rankine Cycle<span>Thermodynamics</span></a>
+        <a href="#">Heat Engine vs Heat Pump<span>Thermodynamics</span></a>
+      </div>
+    </section>
+
+    <div class="cta">
+      <div>
+        <h3>GATE ME Thermodynamics Test Series</h3>
+        <p>Chapter-wise tests on Availability, Entropy and Cycles with detailed solutions.</p>
+      </div>
+      <div class="spacer"></div>
+      <a class="btn" href="#">Attempt Free Test →</a>
+    </div>
+  </main>
+</div>
+
+<footer>© Testbook · Energy vs Exergy · GATE ME / ESE ME Thermodynamics</footer>
+
+<script>
+  /* ---------- Heat exergy table + bars (computed, not hard-coded) ---------- */
+  (function () {
+    const T0 = 300, Q = 1000;
+    const temps = [350, 400, 500, 600, 800, 1000, 1500, 2000];
+    const rows = document.getElementById('heatRows');
+    const bars = document.getElementById('heatBars');
+    temps.forEach(T => {
+      const f = 1 - T0 / T, X = Q * f, A = Q - X;
+      rows.insertAdjacentHTML('beforeend',
+        `<tr><td>${T}</td><td>${(T - 273.15).toFixed(2)}</td><td class="num">${f.toFixed(4)}</td>
+         <td class="num">${Q.toFixed(0)}</td><td class="num"><b>${X.toFixed(1)}</b></td><td class="num">${A.toFixed(1)}</td></tr>`);
+      bars.insertAdjacentHTML('beforeend',
+        `<div class="bar-row"><span>${T} K</span>
+          <div class="bar-track"><div class="bar-x" style="width:${f * 100}%"></div><div class="bar-a" style="width:${(1 - f) * 100}%"></div></div>
+          <span class="num">${(f * 100).toFixed(1)}%</span></div>`);
+    });
+  })();
+
+  /* ---------- Calculators ---------- */
+  const $ = id => document.getElementById(id);
+  function calcHeat() {
+    const Q = +$('cQ').value, T = +$('cT').value, T0 = +$('cT0').value;
+    if (!(T > 0 && T0 > 0)) { $('cOut').textContent = '—'; $('cOut2').textContent = 'Enter temperatures in kelvin (> 0).'; return; }
+    const f = 1 - T0 / T, X = Q * f;
+    $('cOut').textContent = `${X.toFixed(2)} kJ`;
+    $('cOut2').textContent = T < T0
+      ? `T < T₀: heat flowing below ambient; exergy flows opposite to heat. |X| = ${Math.abs(X).toFixed(2)} kJ.`
+      : `Carnot factor ${f.toFixed(4)} · Anergy ${(Q - X).toFixed(2)} kJ · ${(f * 100).toFixed(1)}% of Q is usable work.`;
+  }
+  function calcAir() {
+    const cp = 1.005, R = 0.287;
+    const T = +$('aT').value, P = +$('aP').value, T0 = +$('aT0').value, P0 = +$('aP0').value;
+    if (!(T > 0 && T0 > 0 && P > 0 && P0 > 0)) { $('aOut').textContent = '—'; $('aOut2').textContent = 'All inputs must be > 0.'; return; }
+    const dh = cp * (T - T0);
+    const ds = cp * Math.log(T / T0) - R * Math.log(P / P0);
+    const psi = dh - T0 * ds;
+    $('aOut').textContent = `${psi.toFixed(2)} kJ/kg`;
+    $('aOut2').textContent = `h − h₀ = ${dh.toFixed(2)} kJ/kg · s − s₀ = ${ds.toFixed(4)} kJ/kg·K · T₀(s − s₀) = ${(T0 * ds).toFixed(2)} kJ/kg`;
+  }
+  ['cQ', 'cT', 'cT0'].forEach(id => $(id).addEventListener('input', calcHeat));
+  ['aT', 'aP', 'aT0', 'aP0'].forEach(id => $(id).addEventListener('input', calcAir));
+  calcHeat(); calcAir();
+
+  /* ---------- Practice MCQs ---------- */
+  const quiz = [
+    { q: '100 kJ of heat is available at 600 K. Ambient is 300 K. Its exergy is:',
+      o: ['25 kJ', '50 kJ', '75 kJ', '100 kJ'], a: 1,
+      w: 'X = 100 × (1 − 300/600) = 50 kJ.' },
+    { q: 'The exergy of a system at the dead state is:',
+      o: ['Maximum', 'Equal to its internal energy', 'Zero', 'Negative'], a: 2,
+      w: 'At the dead state the system is in equilibrium with the environment, so no work can be extracted.' },
+    { q: 'Entropy generated in a process is 0.2 kJ/K with T₀ = 300 K. Exergy destroyed is:',
+      o: ['0.67 kJ', '60 kJ', '150 kJ', '1500 kJ'], a: 1,
+      w: 'Gouy–Stodola: I = T₀·S_gen = 300 × 0.2 = 60 kJ.' },
+    { q: 'Which statement is correct for an irreversible process?',
+      o: ['Energy and exergy both conserved', 'Energy conserved, exergy destroyed', 'Exergy conserved, energy destroyed', 'Both destroyed'], a: 1,
+      w: 'Energy is always conserved (1st law). Irreversibility destroys exergy (2nd law).' }
+  ];
+  const qBox = $('quiz');
+  quiz.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'q';
+    div.innerHTML = `<div class="qt">Q${i + 1}. ${item.q}</div>
+      <div class="opts">${item.o.map((t, j) => `<button class="opt" data-j="${j}">${String.fromCharCode(65 + j)}. ${t}</button>`).join('')}</div>
+      <div class="why"><b>Answer: ${String.fromCharCode(65 + item.a)}.</b> ${item.w}</div>`;
+    div.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
+      if (div.classList.contains('done')) return;
+      const j = +b.dataset.j;
+      b.classList.add(j === item.a ? 'right' : 'wrong');
+      div.querySelectorAll('.opt')[item.a].classList.add('right');
+      div.classList.add('done');
+    }));
+    qBox.appendChild(div);
+  });
+
+  /* ---------- PDF ---------- */
+  // Uses a print stylesheet (A4, header, answers shown, UI hidden).
+  // In production, point this at a pre-generated PDF URL instead, e.g. /pdf/energy-vs-exergy.pdf
+  function downloadPDF() { window.print(); }
+</script>
+</body>
+</html>
